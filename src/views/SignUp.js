@@ -8,48 +8,37 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { useStyles } from '../styles/material-ui/SignUpStyles';
 import Container from '@material-ui/core/Container';
 import CopyRight from '../components/CopyRight'
 import {connect} from 'react-redux'
-import {handleInputs} from '../redux/actions/commonActions'
-import {handleSignUp} from '../redux/actions/accountActions'
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { handleInputs } from '../redux/actions/commonActions'
+import { handleSignUp } from '../redux/actions/accountActions'
+import '../styles/css/signUp.css'
+import { withRouter } from "react-router-dom";
+
 
 const SignUp = (props) => {
-  const { email, firstName, lastName, password, onSignUP } = props;
+  const classes = useStyles();
+
+  const { email, firstName, lastName, password, onSignUP, error, history } = props;
+  
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSignUP({ email, firstName, lastName, password });
-}
+    onSignUP({ email, firstName, lastName, password }).then((res)=>{
+      if (res) {
+        history.push('/sign-in')
+      }
+    })
+  }
+  
   const handleInput = ({ target: { value, name } }) => {
     const { onInputChange } = props;
     onInputChange({ field: name, value });
   };
-  const classes = useStyles();
+
+  const {email: emailError, password:passwordError} = error
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -67,7 +56,6 @@ const SignUp = (props) => {
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                required
                 fullWidth
                 id="firstName"
                 label="First Name"
@@ -79,7 +67,6 @@ const SignUp = (props) => {
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="lastName"
                 label="Last Name"
@@ -101,6 +88,7 @@ const SignUp = (props) => {
                 value={email}
                 onChange={handleInput}
               />
+              {emailError ? <div className="emailError">{emailError}</div> : ""}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -115,6 +103,7 @@ const SignUp = (props) => {
                 value = {password}
                 onChange={handleInput}
               />
+              {passwordError ? <div className="passwordError">{passwordError}</div> : ""}
             </Grid>
           </Grid>
           <Button
@@ -160,4 +149,4 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(withRouter(SignUp));

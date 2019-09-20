@@ -1,13 +1,18 @@
 import React from 'react';
-import SignUp from './views/SignUp'
-import {Provider} from 'react-redux'
-import store from './redux/store'
+import { Route, Switch } from "react-router-dom";
+import  SignIn from './views/SignIn'
+import  SignUp  from './views/SignUp'
+import Landing from './views/Landing'
 
 function App() {
   return (
-    <Provider store={store}>
-      <SignUp/>
-   </Provider>
+    <div>
+      <Switch>
+          <Route path="/" exact component={Landing}/>
+          <Route path="/sign-up" component={SignUp}/>
+          <Route path="/sign-in" component={SignIn} />
+      </Switch>
+    </div>
   );
 }
 

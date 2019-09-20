@@ -1,4 +1,4 @@
-import {CREATE_ACCOUNT_SUCCESS, SET_INPUT} from '../actions/types'
+import {CREATE_ACCOUNT_SUCCESS, CREATE_ACCOUNT_FAILED, SET_INPUT } from '../actions/types'
 
 const initialState = {
     message: "",
@@ -18,6 +18,11 @@ export default function (state = initialState, {type, payload}) {
             return {
                 ...state,
                 user: payload
+            }
+        case CREATE_ACCOUNT_FAILED:
+            return {
+                ...state, 
+                error: payload
             }
         case SET_INPUT:
             return {

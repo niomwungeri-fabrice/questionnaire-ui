@@ -1,17 +1,29 @@
-import {CREATE_ACCOUNT_SUCCESS} from './types'
+import dotenv from "dotenv";
+import axios from 'axios';
+import { CREATE_ACCOUNT_SUCCESS, CREATE_ACCOUNT_FAILED } from './types'
+
+dotenv.config();
+
+export const success = payload => ({
+    type: CREATE_ACCOUNT_SUCCESS,
+    payload
+  });
+  
+  export const failure = payload => ({
+    type: CREATE_ACCOUNT_FAILED,
+    payload
+  });
 
 export const handleSignUp = (payload) => dispatch => {
-    fetch('https://questionnaire-web-api.herokuapp.com/api/v1/register/',{
-        method: 'POST',
-        headers:{
-            'content-type': 'application/json'
-        },
-        body:JSON.stringify(payload)
-    })
-    .then(resp => resp.json())
-    .then(user => dispatch({
-        type: CREATE_ACCOUNT_SUCCESS,
-        payload: user
-    }))
+    return axios.post('https://questionnaire-web-api.herokuapp.com/api/v1/register', payload)
+  .then((response) => {
+    dispatch(success(response.data))
+    return true;
+  })
+  .catch(error => {
+     dispatch(failure(error.response.data))
+    return false;
+
+  })
 }
 
