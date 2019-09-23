@@ -18,7 +18,7 @@ import '../styles/css/signUp.css'
 import { withRouter } from "react-router-dom";
 
 
-const SignUp = (props) => {
+export const SignUp = (props) => {
   const classes = useStyles();
 
   const { email, firstName, lastName, password, onSignUP, error, history } = props;
@@ -49,7 +49,7 @@ const SignUp = (props) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
+        <form id="register-form" onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -107,6 +107,7 @@ const SignUp = (props) => {
             </Grid>
           </Grid>
           <Button
+            id="sign-up"
             type="submit"
             fullWidth
             variant="contained"

@@ -20,9 +20,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "coverage": "react-scripts test --env=jsdom --coverage",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "test": "react-scripts test --watchAll",
+    "test:coverage": "react-scripts test --watchAll \"-- --coverage\"",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,6 +41,21 @@
     ]
   },
   "devDependencies": {
-    "coveralls": "^3.0.6"
+    "coveralls": "^3.0.6",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "moxios": "^0.4.0",
+    "react-test-renderer": "^16.9.0",
+    "redux-mock-store": "^1.5.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/**/*.js",
+      "!<rootDir>/src/serviceWorker.js",
+      "!<rootDir>/src/index.js",
+      "!<rootDir>/coverage/**/*.*",
+      "!<rootDir>/build/**/*.*",
+      "!<rootDir>/src/styles/material-ui/*.js"
+    ]
   }
 }

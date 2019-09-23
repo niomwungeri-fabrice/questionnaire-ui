@@ -14,16 +14,15 @@ export const success = payload => ({
     payload
   });
 
-export const handleSignUp = (payload) => dispatch => {
-    return axios.post('https://questionnaire-web-api.herokuapp.com/api/v1/register', payload)
-  .then((response) => {
-    dispatch(success(response.data))
+export const handleSignUp = (payload) => async dispatch => {
+    try {
+    const response = await axios.post('http://127.0.0.1:8000/api/v1/register', payload);
+    dispatch(success(response.data));
     return true;
-  })
-  .catch(error => {
-     dispatch(failure(error.response.data))
+  }
+  catch (error) {
+    dispatch(failure(error.response.data));
     return false;
-
-  })
+  }
 }
 
