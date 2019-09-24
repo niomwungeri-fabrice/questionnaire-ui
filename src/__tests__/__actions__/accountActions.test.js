@@ -2,16 +2,15 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import axios from 'axios'
 import moxios from "moxios";
-import { testInitialState } from "../../testData";
-import {
-    CREATE_ACCOUNT_FAILED,
-    CREATE_ACCOUNT_SUCCESS,
-    SET_INPUT
-   } from "../../redux/actions/types";
-import { 
-    handleSignUp
-} from '../../redux/actions/accountActions'
+import { handleSignUp } from '../../redux/actions/accountActions'
 import { handleInputs } from '../../redux/actions/commonActions'
+import {validUserPayload, invalidUserPayload ,testInput } from '../../testData'
+import {
+  CREATE_ACCOUNT_FAILED,
+  CREATE_ACCOUNT_SUCCESS,
+  SET_INPUT
+ } from "../../redux/actions/types";
+ const { REACT_APP_API_URL} = process.env
 
 const mockStore = configureStore([thunk]);
 let store;
@@ -20,9 +19,9 @@ describe("Non-Async Account Actions", () => {
     it("should create an action setError ", () => {
       const expectedAction = {
         type: SET_INPUT,
-        payload: { field: "password", value: "123" }
+        payload: {...testInput}
       };
-      expect(handleInputs({ field: "password", value: "123" })).toEqual(
+      expect(handleInputs({...testInput})).toEqual(
         expectedAction
       );
     });
@@ -36,26 +35,18 @@ describe("Non-Async Account Actions", () => {
       afterEach(() => {
         moxios.uninstall(axios);
       });
-      const successPayload = {
-        email : "admin@email.com",
-        password: "passowrd123!"
-      }
-      const failPayload ={
-          email:"email.com",
-          password: "123"
-      }
       it("should create account successfully", () => {
         const expectedResults = [ { 
             type: CREATE_ACCOUNT_SUCCESS, 
             payload: { message: 'Success' } 
         }];
-        moxios.stubRequest('http://127.0.0.1:8000/api/v1/register', {
+        moxios.stubRequest(`${REACT_APP_API_URL}/register/`, {
           status: 201,
           response: {
             message: "Success"
           }
         });
-        return store.dispatch(handleSignUp(successPayload)).then(() => {
+        return store.dispatch(handleSignUp(validUserPayload)).then(() => {
           const actions = store.getActions();
           expect(actions).toEqual(expectedResults);
         });
@@ -65,13 +56,13 @@ describe("Non-Async Account Actions", () => {
             type: CREATE_ACCOUNT_FAILED, 
             payload: { message: 'failed' } 
         }];
-        moxios.stubRequest('http://127.0.0.1:8000/api/v1/register', {
+        moxios.stubRequest(`${REACT_APP_API_URL}/register/`, {
             status: 400,
             response : {
                 message : "failed"
             }
         });
-        return store.dispatch(handleSignUp(failPayload)).then(() => {
+        return store.dispatch(handleSignUp(invalidUserPayload)).then(() => {
             const actions = store.getActions();
             expect(actions).toEqual(expectedResults);
           });

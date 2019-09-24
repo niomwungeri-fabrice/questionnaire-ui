@@ -1,29 +1,22 @@
 import accountReducers from "../../redux/reducers/accountReducers";
-import { testInitialState } from "../../testData";
+import { testInitialState, testInput, testUser } from "../../testData";
 import {
    CREATE_ACCOUNT_FAILED,
    CREATE_ACCOUNT_SUCCESS,
    SET_INPUT
   } from "../../redux/actions/types";
   
-  const testInput = { field: "email", value: "test@test.com" };
-  
+
   describe("Account Reducers", () => {
     it("should handle CREATE_ACCOUNT_SUCCESS action", () => {
       expect(
         accountReducers(testInitialState, {
           type: CREATE_ACCOUNT_SUCCESS,
-          payload: {
-              email:"admin@email.com",
-              password: "password123"
-          }
+          payload: { ...testUser}
         })
       ).toEqual({
         ...testInitialState,
-        user: {
-            email:"admin@email.com",
-            password: "password123"
-        }
+        user: {...testUser}
       });
     });
     it("should handle CREATE_ACCOUNT_FAILED action", () => {

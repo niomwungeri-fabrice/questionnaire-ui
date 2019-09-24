@@ -1,45 +1,10 @@
-import React from "react";
-import { shallow } from "enzyme";
+import {testInitialState, setUp} from '../../testData'
 import {
-    SignUp,
     mapStateToProps,
     mapDispatchToProps
   } from "../../views/SignUp";
 
-  const initialState = {
-    account: {  error: null, token:"", message:"",
-    user: {
-        firstName: "Fabrice",
-        lastName: "NIYOMWUNGERI",
-        email: "test@test.com",
-        username: "test",
-        password: "test",
-    }},
-};
-const testInput = { field: "email", value: "test@test.com" };
-const setUp = () => {
-    const props = {
-        onInputChange :jest.fn(),
-        onSignUP:jest.fn().mockImplementation(() => Promise.resolve({
-            email: "test@test.com",
-            password: "test"
-        })),
-        history : { push: jest.fn()},
-        account: {
-            firstName: "Fabrice",
-            lastName: "NIYOMWUNGERI",
-            email: "test@test.com",
-            username: "test",
-            password: "test",
-        },
-        error:""
-    };
-    const enzymeWrapper = shallow(<SignUp {...props} />)
-    return {
-      props,
-      enzymeWrapper
-    }
-  }
+
 describe('Dispatcher', () => {
     it("should test onInputChange()", () => {
         const { enzymeWrapper, props } = setUp()
@@ -79,17 +44,14 @@ describe('Dispatcher', () => {
       
       it("should test mapDispatchToProps(onSignUP)", () => {
         const dispatch = jest.fn();
-        mapDispatchToProps(dispatch).onSignUP({
-            email: "test@test.com",
-            password: "test"
-        });
+        mapDispatchToProps(dispatch).onSignUP();
         expect(dispatch.mock.calls[0][0]).toBeDefined()
       });
 
       it('should test mapStateToProps', () => {
-        expect(mapStateToProps(initialState).firstName).toEqual("Fabrice");
-        expect(mapStateToProps(initialState).error).toEqual(null);
-        expect(mapStateToProps(initialState).lastName).toEqual("NIYOMWUNGERI");        
+        expect(mapStateToProps(testInitialState).firstName).toEqual("Fabrice");
+        expect(mapStateToProps(testInitialState).error).toEqual(null);
+        expect(mapStateToProps(testInitialState).lastName).toEqual("NIYOMWUNGERI");        
       });
 
 })

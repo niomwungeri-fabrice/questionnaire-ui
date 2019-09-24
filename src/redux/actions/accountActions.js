@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import axios from 'axios';
+// import {REACT_APP_SERVER_URL} from './commonActions'
 import { 
   CREATE_ACCOUNT_SUCCESS, 
   CREATE_ACCOUNT_FAILED,
@@ -9,24 +10,22 @@ import {
 
 dotenv.config();
 
-export const success = payload => ({
-    type: CREATE_ACCOUNT_SUCCESS,
-    payload
-  });
-  
-  export const failure = payload => ({
-    type: CREATE_ACCOUNT_FAILED,
-    payload
-  });
+const { REACT_APP_API_URL } = process.env;
 
 export const handleSignUp = (payload) => async dispatch => {
     try {
-    const response = await axios.post('http://127.0.0.1:8000/api/v1/register', payload);
-    dispatch(success(response.data));
+    const response = await axios.post(`${REACT_APP_API_URL}/register/`, payload);
+    dispatch({
+      type: CREATE_ACCOUNT_SUCCESS,
+      payload: response.data
+    });
     return true;
   }
   catch (error) {
-    dispatch(failure(error.response.data));
+    dispatch({
+      type: CREATE_ACCOUNT_FAILED,
+      payload: error.response.data
+    });
     return false;
   }
 }
@@ -34,14 +33,13 @@ export const handleSignUp = (payload) => async dispatch => {
 
 export const handleSignIn = (payload) => async dispatch =>{
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', payload);
+    const response = await axios.post(`${REACT_APP_API_URL}/token/  `, payload);
     dispatch({
       type: LOGIN_SUCCESS,
       payload : response.data
     })
     return true
   } catch (error) {
-    console.log(error.response.data, '=======')
     dispatch({
       type: LOGIN_FAILED,
       payload: error.response.data
