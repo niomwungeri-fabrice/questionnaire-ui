@@ -1,11 +1,13 @@
 language: node_js
+notifications:
+  email: false
 node_js:
   - "stable"
 cache:
   directories:
     - node_modules
 script:
-  - yarn run test
+  - yarn run test:coverage
   # - yarn build
 after_script: # Upload coverage reports
   - yarn run coveralls
