@@ -18,7 +18,7 @@ import Copyright from '../components/CopyRight'
 import { withRouter } from "react-router-dom";
 
 
-const  Pricing = (props) =>{
+export const  Landing = (props) =>{
   const {history} = props
   
   const classes = useStyles();
@@ -35,7 +35,7 @@ const  Pricing = (props) =>{
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             e-Meetups
           </Typography>
-          <Button onClick={handleLoginClick} color="primary" variant="outlined" className={classes.link}>
+          <Button id="landing-login" onClick={handleLoginClick} color="primary" variant="outlined" className={classes.link}>
             Login
           </Button>
         </Toolbar>
@@ -121,4 +121,4 @@ const  Pricing = (props) =>{
   );
 }
 
-export default withRouter(Pricing)
+export default withRouter(Landing)

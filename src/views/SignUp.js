@@ -88,7 +88,7 @@ export const SignUp = (props) => {
                 value={email}
                 onChange={handleInput}
               />
-              {emailError ? <div className="emailError">{emailError}</div> : ""}
+              <div className="emailError">{emailError}</div>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -103,7 +103,7 @@ export const SignUp = (props) => {
                 value = {password}
                 onChange={handleInput}
               />
-              {passwordError ? <div className="passwordError">{passwordError}</div> : ""}
+             <div className="passwordError">{passwordError}</div>
             </Grid>
           </Grid>
           <Button

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import  SignIn from './views/SignIn'
-import  SignUp  from './views/SignUp'
-import Landing from './views/Landing'
+import  SignIn from '../views/SignIn'
+import  SignUp  from '../views/SignUp'
+import Landing from '../views/Landing'
 
 function App() {
   return (

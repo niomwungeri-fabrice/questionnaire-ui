@@ -50,7 +50,7 @@ export const SignIn = (props)  => {
           Sign in
         </Typography>
         <div className="passwordError">{detail}</div>
-        <form onSubmit={handleSignInOnSubmit} className={classes.form} noValidate>
+        <form id="login-form" onSubmit={handleSignInOnSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -63,7 +63,7 @@ export const SignIn = (props)  => {
             autoFocus
             onChange={handleInput}
           />
-          {emailError ? <div className="emailError">{emailError}</div> : ""}
+          <div className="emailError">{emailError}</div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -76,7 +76,7 @@ export const SignIn = (props)  => {
             autoComplete="current-password"
             onChange={handleInput}
           />
-          {passwordError ? <div className="passwordError">{passwordError}</div> : ""}
+          <div className="passwordError">{passwordError}</div>
           <Button
             type="submit"
             fullWidth

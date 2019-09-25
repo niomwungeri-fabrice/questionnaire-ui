@@ -2,13 +2,13 @@ import {testInitialState, setUp} from '../../testData'
 import {
     mapStateToProps,
     mapDispatchToProps
-  } from "../../views/SignUp";
+} from "../../views/SignUp";
 
 
-describe('Dispatcher', () => {
+describe('SignUp Dispatcher', () => {
     it("should test onInputChange()", () => {
-        const { enzymeWrapper, props } = setUp()
-        enzymeWrapper
+        const { enzymeWrapperSignUp, props } = setUp()
+        enzymeWrapperSignUp
           .find("#email")
           .first()
           .simulate("change", { target: { value: "hello" } });
@@ -16,8 +16,8 @@ describe('Dispatcher', () => {
       });
 
       it("should test onSignUP()", () => {
-        const { enzymeWrapper, props } = setUp()
-        enzymeWrapper
+        const { enzymeWrapperSignUp, props } = setUp()
+        enzymeWrapperSignUp
           .find("#register-form")
           .simulate("submit",  {
             preventDefault: () => {
@@ -26,8 +26,8 @@ describe('Dispatcher', () => {
       });
       
       it.skip("should test redirect to login page", () => {
-        const { enzymeWrapper, props } = setUp()
-        enzymeWrapper
+        const { enzymeWrapperSignUp, props } = setUp()
+        enzymeWrapperSignUp
         .find("#register-form")
         .simulate("submit",  {
           preventDefault: () => {
@@ -35,14 +35,14 @@ describe('Dispatcher', () => {
         expect(props.history.push.mock.instances.length).toBe(1);
       });
       
-      it("should test mapDispatchToProps(onInputChange)", () => {
+      it("should test mapDispatchToProps onInputChange()", () => {
         const dispatch = jest.fn();
         mapDispatchToProps(dispatch).onInputChange();
         expect(dispatch.mock.calls[0][0]).toBeDefined()
 
       });
       
-      it("should test mapDispatchToProps(onSignUP)", () => {
+      it("should test mapDispatchToProps onSignUP()", () => {
         const dispatch = jest.fn();
         mapDispatchToProps(dispatch).onSignUP();
         expect(dispatch.mock.calls[0][0]).toBeDefined()

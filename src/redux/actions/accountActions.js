@@ -33,7 +33,7 @@ export const handleSignUp = (payload) => async dispatch => {
 
 export const handleSignIn = (payload) => async dispatch =>{
   try {
-    const response = await axios.post(`${REACT_APP_API_URL}/token/  `, payload);
+    const response = await axios.post(`${REACT_APP_API_URL}/token/`, payload);
     dispatch({
       type: LOGIN_SUCCESS,
       payload : response.data
