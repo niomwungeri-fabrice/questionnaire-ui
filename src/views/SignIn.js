@@ -13,7 +13,7 @@ import Copyright from '../components/CopyRight'
 import {connect} from 'react-redux'
 import { withRouter } from "react-router-dom";
 import {mapStateToProps } from './SignUp'
-import { handleSignIn } from '../redux/actions/accountActions'
+import { handleSignIn, handleCurrentAccount } from '../redux/actions/accountActions'
 import { handleInputs } from '../redux/actions/commonActions'
 import { useStyles } from '../styles/material-ui/SignInStyles';
 import '../styles/css/signUp.css'
@@ -22,12 +22,14 @@ import '../styles/css/signUp.css'
 export const SignIn = (props)  => {
   const classes = useStyles();
   
-  const { email, password, onSignIn, history, error } = props;
+  const { email, password, onSignIn, setCurrentAccount, history, error } = props;
   
   const handleSignInOnSubmit = (e) =>{
     e.preventDefault()
-    onSignIn({email, password}).then((response)=>{
-      if (response) {
+    onSignIn({email, password}).then((token)=>{
+      if (token) {
+        const { access } = token
+        setCurrentAccount(access)
         history.push('/')
       }
     })    
@@ -110,7 +112,8 @@ export const SignIn = (props)  => {
 
 export const mapDispatchToProps = dispatch => ({
   onInputChange: payload => dispatch(handleInputs(payload)),
-  onSignIn: payload => dispatch(handleSignIn(payload))
+  onSignIn: payload => dispatch(handleSignIn(payload)),
+  setCurrentAccount: payload => dispatch(handleCurrentAccount(payload))
 });
 
 export default connect(

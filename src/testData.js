@@ -15,6 +15,7 @@ const setUp = () => {
         email: "test@test.com",
         password: "test"
       })),
+      setCurrentAccount: jest.fn().mockImplementation(() => Promise.resolve()),
       history : { push: jest.fn()},
       account: {
           firstName: "Fabrice",

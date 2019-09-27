@@ -8,11 +8,11 @@ import {
   fakeErrorMessage
  } from "../../testData";
 import {
-   CREATE_ACCOUNT_FAILED,
    CREATE_ACCOUNT_SUCCESS,
+   CURRENT_ACCOUNT_SUCCESS,
+   LOGIN_SUCCESS,
    SET_INPUT,
-   LOGIN_FAILED,
-   LOGIN_SUCCESS
+   SET_ERROR
   } from "../../redux/actions/types";
   
 
@@ -32,7 +32,7 @@ import {
     it("should handle CREATE_ACCOUNT_FAILED action", () => {
       expect(
         accountReducers(defaultInitialState, {
-          type: CREATE_ACCOUNT_FAILED,
+          type: SET_ERROR,
           payload: fakeErrorMessage
         })
       ).toEqual({
@@ -40,7 +40,17 @@ import {
         error: fakeErrorMessage
       });
     });
-
+    it("should handle CURRENT_ACCOUNT_SUCCESS action", () => {
+      expect(
+        accountReducers(defaultInitialState, {
+          type: CURRENT_ACCOUNT_SUCCESS,
+          payload: { ...testUser}
+        })
+      ).toEqual({
+        ...defaultInitialState,
+        user: {...testUser}
+      });
+    });
     it("should handle SET_FORM_INPUT action", () => {
       expect(
         accountReducers(defaultInitialState, {
@@ -85,7 +95,7 @@ describe('Login Reducers', () => {
   it("should handle LOGIN_FAILED action", () => {
     expect(
       accountReducers(defaultInitialState, {
-        type: LOGIN_FAILED,
+        type: SET_ERROR,
         payload: fakeErrorMessage
       })
     ).toEqual({

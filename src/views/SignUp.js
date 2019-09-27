@@ -132,15 +132,7 @@ export const SignUp = (props) => {
   );
 }
 
-export const mapStateToProps = ({ account }) => ({
-  token: account.token,
-  error: account.error,
-  message: account.message,
-  email: account.user.email,
-  password: account.user.password,
-  firstName: account.user.firstName,
-  lastName: account.user.lastName
-});
+export const mapStateToProps = ({ account }) => ({...account});
 
 export const mapDispatchToProps = dispatch => ({
   onInputChange: payload => dispatch(handleInputs(payload)),

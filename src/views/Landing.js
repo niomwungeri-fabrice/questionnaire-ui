@@ -16,11 +16,11 @@ import Box from '@material-ui/core/Box';
 import {useStyles, tiers, footers} from '../styles/material-ui/landingStyles'
 import Copyright from '../components/CopyRight'
 import { withRouter } from "react-router-dom";
+import {connect} from 'react-redux'
+import {mapStateToProps } from './SignUp'
 
-
-export const  Landing = (props) =>{
-  const {history} = props
-  
+export const Landing = (props) =>{
+  const {history, email} = props
   const classes = useStyles();
   
   const handleLoginClick =() =>{
@@ -35,9 +35,10 @@ export const  Landing = (props) =>{
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             e-Meetups
           </Typography>
+          {email ? <div>Welcome, {email}</div> :  
           <Button id="landing-login" onClick={handleLoginClick} color="primary" variant="outlined" className={classes.link}>
             Login
-          </Button>
+          </Button>}
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
@@ -121,4 +122,6 @@ export const  Landing = (props) =>{
   );
 }
 
-export default withRouter(Landing)
+export default connect(
+  mapStateToProps
+)(withRouter(Landing));

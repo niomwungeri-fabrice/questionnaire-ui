@@ -1,9 +1,9 @@
 import {
-    CREATE_ACCOUNT_SUCCESS, 
-    CREATE_ACCOUNT_FAILED,
-    LOGIN_FAILED,
-    LOGIN_SUCCESS, 
+    CREATE_ACCOUNT_SUCCESS,
+    LOGIN_SUCCESS,
+    CURRENT_ACCOUNT_SUCCESS, 
     SET_INPUT,
+    SET_ERROR
 } from '../actions/types'
 
 const initialState = {
@@ -26,27 +26,27 @@ export default function (state = initialState, {type, payload}) {
                 ...state,
                 user: payload
             }
-        case CREATE_ACCOUNT_FAILED:
-            return {
-                ...state, 
-                error: payload
-            }
-        case LOGIN_FAILED:
-            return {
-                ...state, 
-                error: payload
-            }
         case LOGIN_SUCCESS:
             return {
                 ...state, 
                 token: payload.access,
                 refresh: payload.refresh
             }
+        case CURRENT_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                user: payload
+            }
         case SET_INPUT:
             return {
                 ...state,
                   user: { ...state.user, [payload.field]: payload.value }
                 };
+        case SET_ERROR:
+            return {
+                ...state, 
+                error: payload
+            }
         default:
             return state;
     }

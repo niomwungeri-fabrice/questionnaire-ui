@@ -3,9 +3,9 @@ import axios from 'axios';
 // import {REACT_APP_SERVER_URL} from './commonActions'
 import { 
   CREATE_ACCOUNT_SUCCESS, 
-  CREATE_ACCOUNT_FAILED,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS 
+  LOGIN_SUCCESS,
+  CURRENT_ACCOUNT_SUCCESS,
+  SET_ERROR
 } from './types'
 
 dotenv.config();
@@ -23,13 +23,12 @@ export const handleSignUp = (payload) => async dispatch => {
   }
   catch (error) {
     dispatch({
-      type: CREATE_ACCOUNT_FAILED,
+      type: SET_ERROR,
       payload: error.response.data
     });
     return false;
   }
 }
-
 
 export const handleSignIn = (payload) => async dispatch =>{
   try {
@@ -38,12 +37,31 @@ export const handleSignIn = (payload) => async dispatch =>{
       type: LOGIN_SUCCESS,
       payload : response.data
     })
-    return true
+    return response.data
   } catch (error) {
     dispatch({
-      type: LOGIN_FAILED,
+      type: SET_ERROR,
       payload: error.response.data
     });
-    return false;
+    return undefined;
+  }
+}
+
+export const handleCurrentAccount = (tokenPayload) => async dispatch =>{
+  try {
+    const response = await axios.get(`${REACT_APP_API_URL}/me/`, 
+    { headers: {
+      'Authorization': 'Bearer ' + tokenPayload
+      }
+    });
+    dispatch({
+      type: CURRENT_ACCOUNT_SUCCESS,
+      payload : response.data
+    })
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload: error.response.data
+    });
   }
 }

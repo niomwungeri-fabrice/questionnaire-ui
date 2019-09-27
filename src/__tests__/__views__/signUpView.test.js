@@ -49,9 +49,9 @@ describe('SignUp Dispatcher', () => {
       });
 
       it('should test mapStateToProps', () => {
-        expect(mapStateToProps(testInitialState).firstName).toEqual("Fabrice");
+        expect(mapStateToProps(testInitialState).user.firstName).toEqual("Fabrice");
         expect(mapStateToProps(testInitialState).error).toEqual(null);
-        expect(mapStateToProps(testInitialState).lastName).toEqual("NIYOMWUNGERI");        
+        expect(mapStateToProps(testInitialState).user.lastName).toEqual("NIYOMWUNGERI");        
       });
 
 })

@@ -4,7 +4,7 @@ import  SignIn from '../views/SignIn'
 import  SignUp  from '../views/SignUp'
 import Landing from '../views/Landing'
 
-function App() {
+export const App = () =>{
   return (
     <div>
       <Switch>
