@@ -36,3 +36,6 @@ $ yarn test:coverage
 - [ReactJS](https://reactjs.org/) - React is a JavaScript library for building user interfaces.
 - [Redux](https://redux.js.org/) - Redux is an open-source JavaScript library for managing application state.
 - [Material UI](https://material-ui.com/) - React components for faster and easier web development. 
+
+## Resources
+- [EvenBrite](https://www.eventbrite.com/manage/events/create)

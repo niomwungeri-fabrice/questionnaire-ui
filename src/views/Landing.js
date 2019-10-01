@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,39 +7,24 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import StarIcon from '@material-ui/icons/StarBorder';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import {useStyles, tiers, footers} from '../styles/material-ui/landingStyles'
-import Copyright from '../components/CopyRight'
+import {CopyRight} from '../components/CopyRight'
 import { withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
 import {mapStateToProps } from './SignUp'
+import {NavBar} from '../components/NavBar'
 
 export const Landing = (props) =>{
-  const {history, email} = props
   const classes = useStyles();
-  
-  const handleLoginClick =() =>{
-    history.push('/sign-in')
-  }
   
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            e-Meetups
-          </Typography>
-          {email ? <div>Welcome, {email}</div> :  
-          <Button id="landing-login" onClick={handleLoginClick} color="primary" variant="outlined" className={classes.link}>
-            Login
-          </Button>}
-        </Toolbar>
-      </AppBar>
+      <NavBar/>
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -114,7 +98,7 @@ export const Landing = (props) =>{
           ))}
         </Grid>
         <Box mt={5}>
-          <Copyright />
+          <CopyRight />
         </Box>
       </Container>
       {/* End footer */}

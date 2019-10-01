@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link, Typography } from '@material-ui/core'
+import { useStyles } from '../styles/material-ui/SignInStyles'
 
-export default class CopyRight extends Component {
-  render() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
+export const CopyRight = (props) => {
+  const classes = useStyles();
+  console.log(classes)
+  return (
+        <Typography className={classes.submit} variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://material-ui.com/">
           questionnaire
@@ -14,4 +16,3 @@ export default class CopyRight extends Component {
       </Typography>
     )
   }
-}

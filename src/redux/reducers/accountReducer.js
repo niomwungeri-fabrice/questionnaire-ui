@@ -5,19 +5,7 @@ import {
     SET_INPUT,
     SET_ERROR
 } from '../actions/types'
-
-const initialState = {
-    message: "",
-    error: "",
-    token: "",
-    refresh:"",
-    user: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-    }
-  };
+import { initialState }from '../InitialState'
 
 export default function (state = initialState, {type, payload}) {
     switch (type) {

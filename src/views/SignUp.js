@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../styles/material-ui/SignUpStyles';
 import Container from '@material-ui/core/Container';
-import CopyRight from '../components/CopyRight'
+import {CopyRight} from '../components/CopyRight'
 import {connect} from 'react-redux'
 import { handleInputs } from '../redux/actions/commonActions'
 import { handleSignUp } from '../redux/actions/accountActions'
