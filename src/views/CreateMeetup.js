@@ -8,6 +8,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {NavBar} from '../components/NavBar'
 import {CopyRight} from '../components/CopyRight'
+import { withRouter } from "react-router-dom";
+import { handleInputs } from '../redux/actions/commonActions'
+import { handleCreateMeetUp } from '../redux/actions/meetUpActions'
+import {connect} from 'react-redux'
+import '../styles/css/signUp.css'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,28 +39,37 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 export const CreateMeetup = (props) => {
+    const { meetUp:{name, venue, start_date, end_date, event_type, organizer},onInputChange, onCreateMeetUp, error } = props;
     const classes = useStyles();
-    const [state, setState] = useState({
-        age: '',
-        name: 'hai',
-    });
     const inputLabel = useRef(null);
     const [labelWidth, setLabelWidth] = useState(0);
+    const token = localStorage.getItem("token");
     useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
-    const handleChange = name => event => {
-        console.log(event.target.value, "=====")
-        setState({
-        ...state,
-        [name]: event.target.value,
-        });
-    };
     const handleDelete = () => {
         alert('You clicked the Chip.');
-      };
-    const [selectedDate, handleDateChange] = useState(new Date());
+    };
+    const handleInputChange = ({target:{name, value}}) => {
+        onInputChange({ field: name, value });
+    };
+    const handleDateInputChange = ({name, value}) => {
+        onInputChange({ field: name, value });
+    };
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        onCreateMeetUp({name, venue, start_date, end_date, event_type, organizer}, token)
+    }
+    const {
+        name: nameError, 
+        location:locationError,
+        event_type: eventTypeError,
+        start_date: startDateError,
+        end_date: endDateError,
+        organizer: organizerError
+        // detail
+    } = error
     return (
         <div>
             <React.Fragment>
@@ -65,6 +80,7 @@ export const CreateMeetup = (props) => {
                     <p>
                     Name your meet-up and tell meet-up-goers why they should come. Add details that highlight what makes it unique.
                     </p>
+                    <form onSubmit={handleSubmit}>
                     <TextField
                         label="Meet-Up Title"
                         style={{ margin: 8 }}
@@ -75,20 +91,20 @@ export const CreateMeetup = (props) => {
                         InputLabelProps={{
                         shrink: true,
                         }}
+                        name='name'
+                        value={name}
+                        onChange={handleInputChange}
                     />
+                    <div className="validationMessage">{nameError}</div>
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
                         Type
                         </InputLabel>
                         <Select
                         native
-                        value={state.age}
-                        onChange={handleChange('age')}
+                        // value={event_type}
+                        // onChange={handleInputChange}
                         labelWidth={labelWidth}
-                        inputProps={{
-                            name: 'age',
-                            id: 'outlined-age-native-simple',
-                        }}
                         >
                         <option value=""></option>
                         <option value="APPEARANCE_OR_SIGNING">Appearance or Signing</option>
@@ -113,6 +129,7 @@ export const CreateMeetup = (props) => {
                         <option value="100">Other</option>
                         </Select>
                     </FormControl>
+                    <div className="validationMessage">{eventTypeError}</div>
                     <Grid container spacing={3}>
                         <Grid item xs={9}>
                             <TextField
@@ -165,7 +182,11 @@ export const CreateMeetup = (props) => {
                         InputLabelProps={{
                         shrink: true,
                         }}
+                        name="organizer"
+                        value={organizer}
+                        onChange={handleInputChange}
                     />
+                    <div className="validationMessage">{organizerError}</div>
                     <h1>Location</h1>
                     <p>
                     Help people in the area discover your meet-up and let attendees know where to show up.
@@ -180,7 +201,11 @@ export const CreateMeetup = (props) => {
                         InputLabelProps={{
                         shrink: true,
                         }}
+                        name="venue"
+                        value={venue}
+                        onChange={handleInputChange}
                     />
+                    <div className="validationMessage">{locationError}</div>
                     <h1>Date and time</h1>
                     <p>
                     Tell meet-up-goers when your meet-up starts and ends so they can make plans to attend.
@@ -192,18 +217,21 @@ export const CreateMeetup = (props) => {
                             label="Start"
                             inputVariant="outlined"
                             fullWidth
-                            value={selectedDate}
-                            onChange={handleDateChange}
+                            value={start_date}
+                            onChange={(e)=>handleDateInputChange({name:"startDate", value:e})}
                         />
+                        <div className="validationMessage">{startDateError}</div>
                         </Grid>
                         <Grid item xs={6}>
                         <DateTimePicker
                             label="End"
                             inputVariant="outlined"
                             fullWidth
-                            value={selectedDate}
-                            onChange={handleDateChange}
+                            name="endDate"
+                            value={end_date}
+                            onChange={(e)=>handleDateInputChange({name:"endDate", value:e})}
                         />
+                        <div className="validationMessage">{endDateError}</div>
                         </Grid>
                     </Grid>
                     </MuiPickersUtilsProvider>
@@ -217,11 +245,21 @@ export const CreateMeetup = (props) => {
                     >
                         Create
                     </Button>
+                    </form>
                 </Container>
                 <CopyRight/>
             </React.Fragment>
         </div>
     )
 }
+export const mapStateToProps = ({ event }) => ({...event});
 
-export default CreateMeetup
+export const mapDispatchToProps = dispatch => ({
+    onInputChange: payload => dispatch(handleInputs(payload)),
+    onCreateMeetUp: (payload, token) => dispatch(handleCreateMeetUp(payload, token))
+  });
+  
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withRouter(CreateMeetup));

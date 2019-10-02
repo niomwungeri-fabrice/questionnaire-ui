@@ -8,9 +8,13 @@ import {
 dotenv.config();
 const { REACT_APP_API_URL } = process.env;
 
-export const handleCreateMeetUp = (payload) => async dispatch => {
+export const handleCreateMeetUp = (payload, token) => async dispatch => {
     try {
-    const response = await axios.post(`${REACT_APP_API_URL}/meetup/new/`, payload);
+    const response = await axios.post(`${REACT_APP_API_URL}/meetup/new/`, payload, 
+    { headers: {
+      'Authorization': 'Bearer ' + token
+      }
+    });
     dispatch({
       type: CREATE_MEETUP_SUCCESS,
       payload: response.data

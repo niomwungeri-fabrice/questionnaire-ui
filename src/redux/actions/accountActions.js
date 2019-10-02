@@ -37,6 +37,8 @@ export const handleSignIn = (payload) => async dispatch =>{
       type: LOGIN_SUCCESS,
       payload : response.data
     })
+    console.log(response.data)
+    localStorage.setItem("token", response.data.access);
     return response.data
   } catch (error) {
     dispatch({

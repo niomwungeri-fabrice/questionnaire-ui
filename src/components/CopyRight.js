@@ -4,7 +4,6 @@ import { useStyles } from '../styles/material-ui/SignInStyles'
 
 export const CopyRight = (props) => {
   const classes = useStyles();
-  console.log(classes)
   return (
         <Typography className={classes.submit} variant="body2" color="textSecondary" align="center">
         {'Copyright © '}

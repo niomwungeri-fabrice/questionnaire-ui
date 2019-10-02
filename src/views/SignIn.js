@@ -22,7 +22,7 @@ import '../styles/css/signUp.css'
 export const SignIn = (props)  => {
   const classes = useStyles();
   
-  const { email, password, onSignIn, setCurrentAccount, history, error } = props;
+  const { user:{email, password}, onSignIn, setCurrentAccount, history, error } = props;
   
   const handleSignInOnSubmit = (e) =>{
     e.preventDefault()
@@ -65,7 +65,7 @@ export const SignIn = (props)  => {
             autoFocus
             onChange={handleInput}
           />
-          <div className="emailError">{emailError}</div>
+          <div className="validationMessage">{emailError}</div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -78,7 +78,7 @@ export const SignIn = (props)  => {
             autoComplete="current-password"
             onChange={handleInput}
           />
-          <div className="passwordError">{passwordError}</div>
+          <div className="validationMessage">{passwordError}</div>
           <Button
             type="submit"
             fullWidth

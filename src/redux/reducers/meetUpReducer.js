@@ -15,7 +15,7 @@ export default function (state = initialState, {type, payload}) {
         case SET_INPUT:
             return {
                 ...state,
-                  user: { ...state.user, [payload.field]: payload.value }
+                meetUp: { ...state.meetUp, [payload.field]: payload.value }
                 };
         case SET_ERROR:
             return {

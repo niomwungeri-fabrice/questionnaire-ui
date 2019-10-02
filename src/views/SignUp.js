@@ -21,7 +21,7 @@ import { withRouter } from "react-router-dom";
 export const SignUp = (props) => {
   const classes = useStyles();
 
-  const { email, firstName, lastName, password, onSignUP, error, history } = props;
+  const { user:{ email, password,  firstName, lastName}, onSignUP, error, history } = props;
   
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -88,7 +88,7 @@ export const SignUp = (props) => {
                 value={email}
                 onChange={handleInput}
               />
-              <div className="emailError">{emailError}</div>
+              <div className="validationMessage">{emailError}</div>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -103,7 +103,7 @@ export const SignUp = (props) => {
                 value = {password}
                 onChange={handleInput}
               />
-             <div className="passwordError">{passwordError}</div>
+             <div className="validationMessage">{passwordError}</div>
             </Grid>
           </Grid>
           <Button
