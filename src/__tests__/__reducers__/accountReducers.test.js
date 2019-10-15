@@ -1,4 +1,4 @@
-import accountReducers from "../../redux/reducers/accountReducers";
+import accountReducers from "../../redux/reducers/accountReducer";
 import { 
   testInput, 
   testUser, 

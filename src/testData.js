@@ -17,7 +17,7 @@ const setUp = () => {
       })),
       setCurrentAccount: jest.fn().mockImplementation(() => Promise.resolve()),
       history : { push: jest.fn()},
-      account: {
+      user: {
           firstName: "Fabrice",
           lastName: "NIYOMWUNGERI",
           email: "test@test.com",
@@ -33,16 +33,16 @@ const setUp = () => {
     props,
     enzymeWrapperSignUp,
     enzymeWrapperSignIn,
-    enzymeWrapperLanding
+    enzymeWrapperLanding,
   }
 }
 
 const testInput = { field: "email", value: "test@test.com" };
-const validUserPayload = { email : "admin@email.com", password: "password123!" }
-const invalidUserPayload = { email:"email.com", password: "123" }
-const fakeTokenAccess = "89329rhdfsihdfksdh89838uf9w"
-const fakeTokenRefresh = 'kdhjdhgfd939fjsoidh'
-const fakeErrorMessage = 'fake error message'
+const validUserPayload = { email : "admin@email.com", password: "password123!" };
+const invalidUserPayload = { email:"email.com", password: "123" };
+const fakeTokenAccess = "89329rhdfsihdfksdh89838uf9w";
+const fakeTokenRefresh = 'kdhjdhgfd939fjsoidh';
+const fakeErrorMessage = 'fake error message';
 const testInitialState = {
   account: {
     error: null, 

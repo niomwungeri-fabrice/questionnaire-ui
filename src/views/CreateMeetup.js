@@ -54,6 +54,9 @@ export const CreateMeetup = (props) => {
     const handleInputChange = ({target:{name, value}}) => {
         onInputChange({ field: name, value });
     };
+    const handleOptionInputChange = name => event => {
+        onInputChange({ field: name, value: event.target.value });
+      };
     const handleDateInputChange = ({name, value}) => {
         onInputChange({ field: name, value });
     };
@@ -63,12 +66,12 @@ export const CreateMeetup = (props) => {
     }
     const {
         name: nameError, 
-        location:locationError,
+        venue:locationError,
         event_type: eventTypeError,
         start_date: startDateError,
         end_date: endDateError,
-        organizer: organizerError
-        // detail
+        organizer: organizerError,
+        detail
     } = error
     return (
         <div>
@@ -102,8 +105,8 @@ export const CreateMeetup = (props) => {
                         </InputLabel>
                         <Select
                         native
-                        // value={event_type}
-                        // onChange={handleInputChange}
+                        onChange={handleOptionInputChange('event_type')}
+                        value={event_type}
                         labelWidth={labelWidth}
                         >
                         <option value=""></option>
@@ -218,7 +221,7 @@ export const CreateMeetup = (props) => {
                             inputVariant="outlined"
                             fullWidth
                             value={start_date}
-                            onChange={(e)=>handleDateInputChange({name:"startDate", value:e})}
+                            onChange={(e)=>handleDateInputChange({name:"start_date", value:e})}
                         />
                         <div className="validationMessage">{startDateError}</div>
                         </Grid>
@@ -229,7 +232,7 @@ export const CreateMeetup = (props) => {
                             fullWidth
                             name="endDate"
                             value={end_date}
-                            onChange={(e)=>handleDateInputChange({name:"endDate", value:e})}
+                            onChange={(e)=>handleDateInputChange({name:"end_date", value:e})}
                         />
                         <div className="validationMessage">{endDateError}</div>
                         </Grid>
@@ -245,6 +248,7 @@ export const CreateMeetup = (props) => {
                     >
                         Create
                     </Button>
+                    <div className="validationMessage">{detail}</div>
                     </form>
                 </Container>
                 <CopyRight/>

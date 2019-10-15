@@ -15,7 +15,7 @@ export const initialState = {
       image_url : "", 
       start_date : new Date(),
       end_date : new Date(),
-      event_type : "APPEARANCE_OR_SIGNING",
+      event_type : "",
       organizer : ""
     }
   };
