@@ -9,8 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {NavBar} from '../components/NavBar'
 import {CopyRight} from '../components/CopyRight'
 import { withRouter } from "react-router-dom";
-import { handleInputs } from '../redux/actions/commonActions'
-import { handleCreateMeetUp } from '../redux/actions/meetUpActions'
+import { handleInputs, handleClearInputs } from '../redux/actions/commonActions'
+import { handleCreateMeetUp, handleAddTag, handleRemoveTag } from '../redux/actions/meetUpActions'
 import {connect} from 'react-redux'
 import '../styles/css/signUp.css'
 
@@ -39,18 +39,38 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 export const CreateMeetup = (props) => {
-    const { meetUp:{name, venue, start_date, end_date, event_type, organizer},onInputChange, onCreateMeetUp, error } = props;
+    const { 
+        meetUp:{name, venue, start_date, end_date, event_type, organizer, newTag},
+        onInputChange, 
+        onCreateMeetUp,
+        onAddTag,
+        onRemoveTag, 
+        onClearInput,
+        error,
+        tags 
+    } = props;
     const classes = useStyles();
     const inputLabel = useRef(null);
     const [labelWidth, setLabelWidth] = useState(0);
+
     const token = localStorage.getItem("token");
+    
     useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
-    const handleDelete = () => {
-        alert('You clicked the Chip.');
+    const handleDeleteTag = (e, value, index) => {
+        onRemoveTag(value)
     };
+   
+    const handleAddTag = (e) =>{
+        e.preventDefault();
+        if(newTag){
+            onAddTag(newTag)
+        }
+        onClearInput({ field: "newTag" });
+    }
+
     const handleInputChange = ({target:{name, value}}) => {
         onInputChange({ field: name, value });
     };
@@ -140,6 +160,9 @@ export const CreateMeetup = (props) => {
                                 style={{ margin: 8 }}
                                 placeholder="Add keywords to your meet-up"
                                 fullWidth
+                                name="newTag"
+                                value={newTag}
+                                onChange={handleInputChange}
                                 margin="normal"
                                 variant="outlined"
                                 InputLabelProps={{
@@ -154,27 +177,24 @@ export const CreateMeetup = (props) => {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                onClick={handleAddTag}
                                 className={classes.addTag}>
                                 Add Tag
                             </Button>
                         </Grid>
                     </Grid>
-                    <Chip
+                    {tags.map((tag, index) => (
+                        <Chip
+                        key={index}
                         variant="outlined"
                         size="small"
-                        label="Tech"
-                        onDelete={handleDelete}
+                        label= {tag}
+                        value={tag}
+                        onDelete={(e)=>handleDeleteTag(e, tag, index)}
                         className={classes.chip}
                         color="primary"
                     />
-                    <Chip
-                        variant="outlined"
-                        size="small"
-                        label="Science"
-                        onDelete={handleDelete}
-                        className={classes.chip}
-                        color="primary"
-                    />
+                    ))}
                     <TextField
                         label="Organizer"
                         style={{ margin: 8 }}
@@ -260,7 +280,10 @@ export const mapStateToProps = ({ event }) => ({...event});
 
 export const mapDispatchToProps = dispatch => ({
     onInputChange: payload => dispatch(handleInputs(payload)),
-    onCreateMeetUp: (payload, token) => dispatch(handleCreateMeetUp(payload, token))
+    onCreateMeetUp: (payload, token) => dispatch(handleCreateMeetUp(payload, token)),
+    onAddTag: payload => dispatch(handleAddTag(payload)),
+    onRemoveTag: payload => dispatch(handleRemoveTag(payload)),
+    onClearInput: payload => dispatch(handleClearInputs(payload))
   });
   
 export default connect(

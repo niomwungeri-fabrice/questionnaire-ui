@@ -3,6 +3,7 @@ export const initialState = {
     error: "",
     token: "",
     refresh:"",
+    tags:[],
     user: {
       firstName: "",
       lastName: "",
@@ -16,6 +17,7 @@ export const initialState = {
       start_date : new Date(),
       end_date : new Date(),
       event_type : "",
-      organizer : ""
-    }
+      organizer : "",
+      newTag:""
+    },
   };

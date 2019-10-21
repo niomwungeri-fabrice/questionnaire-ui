@@ -120,7 +120,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(SignIn));
-
-
-
-// const t = {"non_field_errors":["End date must be after start date"]}

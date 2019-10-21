@@ -2,10 +2,13 @@ import dotenv from "dotenv";
 import axios from 'axios';
 import { 
     CREATE_MEETUP_SUCCESS,
-    SET_ERROR
+    SET_ERROR,
+    ADD_TAG,
+    REMOVE_TAG
   } from './types'
   
 dotenv.config();
+
 const { REACT_APP_API_URL } = process.env;
 
 export const handleCreateMeetUp = (payload, token) => async dispatch => {
@@ -28,4 +31,17 @@ export const handleCreateMeetUp = (payload, token) => async dispatch => {
     });
     return false;
   }
+}
+
+export const handleAddTag= (payload) => async dispatch => {
+  dispatch({
+    type: ADD_TAG,
+    payload: payload
+  });
+}
+export const handleRemoveTag = (payload) => async dispatch => {
+  dispatch({
+    type: REMOVE_TAG,
+    payload: payload
+  });
 }
