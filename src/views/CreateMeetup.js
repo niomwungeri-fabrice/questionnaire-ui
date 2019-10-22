@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 export const CreateMeetup = (props) => {
+
     const { 
         meetUp:{name, venue, start_date, end_date, event_type, organizer, newTag},
         onInputChange, 
@@ -47,26 +48,28 @@ export const CreateMeetup = (props) => {
         onRemoveTag, 
         onClearInput,
         error,
-        tags 
+        tags,
+        history 
     } = props;
     const classes = useStyles();
     const inputLabel = useRef(null);
     const [labelWidth, setLabelWidth] = useState(0);
 
     const token = localStorage.getItem("token");
+    const tagList = []
     
     useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
-    const handleDeleteTag = (e, value, index) => {
+    const handleDeleteTag = (e, value) => {
         onRemoveTag(value)
     };
    
     const handleAddTag = (e) =>{
         e.preventDefault();
         if(newTag){
-            onAddTag(newTag)
+            onAddTag({name:newTag})
         }
         onClearInput({ field: "newTag" });
     }
@@ -80,9 +83,17 @@ export const CreateMeetup = (props) => {
     const handleDateInputChange = ({name, value}) => {
         onInputChange({ field: name, value });
     };
+
+    tags.forEach(tag =>{ tagList.push(tag.id) })
+    
     const handleSubmit = (e) =>{
         e.preventDefault();
-        onCreateMeetUp({name, venue, start_date, end_date, event_type, organizer}, token)
+        onCreateMeetUp({name, venue, start_date, end_date, event_type, organizer, tags: tagList
+        }, 
+        token)
+        if (!error){
+            history.push('/home')
+        }
     }
     const {
         name: nameError, 
@@ -183,14 +194,14 @@ export const CreateMeetup = (props) => {
                             </Button>
                         </Grid>
                     </Grid>
-                    {tags.map((tag, index) => (
+                    {tags.map(tag=> (
                         <Chip
-                        key={index}
+                        key={tag.id}
                         variant="outlined"
                         size="small"
-                        label= {tag}
-                        value={tag}
-                        onDelete={(e)=>handleDeleteTag(e, tag, index)}
+                        label= {tag.name}
+                        value={tag.name}
+                        onDelete={(e)=>handleDeleteTag(e, tag.name)}
                         className={classes.chip}
                         color="primary"
                     />

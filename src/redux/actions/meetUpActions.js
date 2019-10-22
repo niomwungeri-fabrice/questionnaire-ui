@@ -34,10 +34,20 @@ export const handleCreateMeetUp = (payload, token) => async dispatch => {
 }
 
 export const handleAddTag= (payload) => async dispatch => {
-  dispatch({
-    type: ADD_TAG,
-    payload: payload
-  });
+  try {
+    const response = await axios.post(`${REACT_APP_API_URL}/tags/`, payload);
+    dispatch({
+      type: ADD_TAG,
+      payload: response.data
+    });
+    return true;
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload: error.response.data
+    });
+    return false
+  }
 }
 export const handleRemoveTag = (payload) => async dispatch => {
   dispatch({
