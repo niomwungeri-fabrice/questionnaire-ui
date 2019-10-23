@@ -9,37 +9,45 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import {CopyRight} from '../components/CopyRight'
-import {connect} from 'react-redux'
-import { withRouter } from "react-router-dom";
-import {mapStateToProps } from './SignUp'
-import { handleSignIn, handleCurrentAccount } from '../redux/actions/accountActions'
-import { handleInputs } from '../redux/actions/commonActions'
+import { CopyRight } from '../components/CopyRight';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { mapStateToProps } from './SignUp';
+import {
+  handleSignIn,
+  handleCurrentAccount
+} from '../redux/actions/accountActions';
+import { handleInputs } from '../redux/actions/commonActions';
 import { useStyles } from '../styles/material-ui/SignInStyles';
-import '../styles/css/signUp.css'
+import '../styles/css/signUp.css';
 
-
-export const SignIn = (props)  => {
+export const SignIn = props => {
   const classes = useStyles();
-  
-  const { user:{email, password}, onSignIn, setCurrentAccount, history, error } = props;
-  
-  const handleSignInOnSubmit = (e) =>{
-    e.preventDefault()
-    onSignIn({email, password}).then((token)=>{
+
+  const {
+    user: { email, password },
+    onSignIn,
+    setCurrentAccount,
+    history,
+    error
+  } = props;
+
+  const handleSignInOnSubmit = e => {
+    e.preventDefault();
+    onSignIn({ email, password }).then(token => {
       if (token) {
-        const { access } = token
-        setCurrentAccount(access)
-        history.push('/')
+        const { access } = token;
+        setCurrentAccount(access);
+        history.push('/');
       }
-    })    
-  }
+    });
+  };
   const handleInput = ({ target: { value, name } }) => {
     const { onInputChange } = props;
     onInputChange({ field: name, value });
   };
 
-  const {email: emailError, password:passwordError, detail} = error
+  const { email: emailError, password: passwordError, detail } = error;
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,7 +60,12 @@ export const SignIn = (props)  => {
           Sign in
         </Typography>
         <div className="passwordError">{detail}</div>
-        <form id="login-form" onSubmit={handleSignInOnSubmit} className={classes.form} noValidate>
+        <form
+          id="login-form"
+          onSubmit={handleSignInOnSubmit}
+          className={classes.form}
+          noValidate
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -88,7 +101,7 @@ export const SignIn = (props)  => {
           >
             Sign In
           </Button>
-          
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -96,7 +109,7 @@ export const SignIn = (props)  => {
               </Link>
             </Grid>
             <Grid item>
-              <Link to='/sign-up' href="#" variant="body2">
+              <Link to="/sign-up" href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -108,7 +121,7 @@ export const SignIn = (props)  => {
       </Box>
     </Container>
   );
-}
+};
 
 export const mapDispatchToProps = dispatch => ({
   onInputChange: payload => dispatch(handleInputs(payload)),

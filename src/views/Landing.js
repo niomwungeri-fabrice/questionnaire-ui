@@ -11,28 +11,40 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import {useStyles, tiers, footers} from '../styles/material-ui/landingStyles'
-import {CopyRight} from '../components/CopyRight'
-import { withRouter } from "react-router-dom";
-import {connect} from 'react-redux'
-import {mapStateToProps } from './SignUp'
-import {NavBar} from '../components/NavBar'
+import { useStyles, tiers, footers } from '../styles/material-ui/landingStyles';
+import { CopyRight } from '../components/CopyRight';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { mapStateToProps } from './SignUp';
+import { NavBar } from '../components/NavBar';
 
-export const Landing = (props) =>{
+export const Landing = props => {
   const classes = useStyles();
-  
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <NavBar/>
+      <NavBar />
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+        <Typography
+          component="h1"
+          variant="h2"
+          align="center"
+          color="textPrimary"
+          gutterBottom
+        >
           Pricing
         </Typography>
-        <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Quickly build an effective pricing table for your potential customers with this layout.
-          It&apos;s built with default Material-UI components with little customization.
+        <Typography
+          variant="h5"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Quickly build an effective pricing table for your potential customers
+          with this layout. It&apos;s built with default Material-UI components
+          with little customization.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -40,7 +52,13 @@ export const Landing = (props) =>{
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map(tier => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+            <Grid
+              item
+              key={tier.title}
+              xs={12}
+              sm={tier.title === 'Enterprise' ? 12 : 6}
+              md={4}
+            >
               <Card>
                 <CardHeader
                   title={tier.title}
@@ -61,14 +79,23 @@ export const Landing = (props) =>{
                   </div>
                   <ul>
                     {tier.description.map(line => (
-                      <Typography component="li" variant="subtitle1" align="center" key={line}>
+                      <Typography
+                        component="li"
+                        variant="subtitle1"
+                        align="center"
+                        key={line}
+                      >
                         {line}
                       </Typography>
                     ))}
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant}
+                    color="primary"
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -104,8 +131,6 @@ export const Landing = (props) =>{
       {/* End footer */}
     </React.Fragment>
   );
-}
+};
 
-export default connect(
-  mapStateToProps
-)(withRouter(Landing));
+export default connect(mapStateToProps)(withRouter(Landing));

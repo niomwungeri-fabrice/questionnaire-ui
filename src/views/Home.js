@@ -36,18 +36,18 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`
   },
   toolbarTitle: {
-    flex: 1,
+    flex: 1
   },
   toolbarSecondary: {
     justifyContent: 'space-between',
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   toolbarLink: {
     padding: theme.spacing(1),
-    flexShrink: 0,
+    flexShrink: 0
   },
   mainFeaturedPost: {
     position: 'relative',
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center'
   },
   overlay: {
     position: 'absolute',
@@ -65,44 +65,44 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.3)'
   },
   mainFeaturedPostContent: {
     position: 'relative',
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(6),
-      paddingRight: 0,
-    },
+      paddingRight: 0
+    }
   },
   mainGrid: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   card: {
-    display: 'flex',
+    display: 'flex'
   },
   cardDetails: {
-    flex: 1,
+    flex: 1
   },
   cardMedia: {
-    width: 160,
+    width: 160
   },
   markdown: {
     ...theme.typography.body2,
-    padding: theme.spacing(3, 0),
+    padding: theme.spacing(3, 0)
   },
   sidebarAboutBox: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.grey[200]
   },
   sidebarSection: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
     marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0),
-  },
+    padding: theme.spacing(6, 0)
+  }
 }));
 
 const sections = [
@@ -115,7 +115,7 @@ const sections = [
   'Science',
   'Health',
   'Style',
-  'Travel',
+  'Travel'
 ];
 
 const featuredPosts = [
@@ -123,14 +123,14 @@ const featuredPosts = [
     title: 'Featured post',
     date: 'Nov 12',
     description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+      'This is a wider card with supporting text below as a natural lead-in to additional content.'
   },
   {
     title: 'Post title',
     date: 'Nov 11',
     description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  },
+      'This is a wider card with supporting text below as a natural lead-in to additional content.'
+  }
 ];
 
 const posts = [post1, post2, post3];
@@ -147,7 +147,7 @@ const archives = [
   'July 2019',
   'June 2019',
   'May 2019',
-  'April 2019',
+  'April 2019'
 ];
 
 const social = ['GitHub', 'Twitter', 'Facebook'];
@@ -178,7 +178,11 @@ export default function Blog() {
             Sign up
           </Button>
         </Toolbar>
-        <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+        <Toolbar
+          component="nav"
+          variant="dense"
+          className={classes.toolbarSecondary}
+        >
           {sections.map(section => (
             <Link
               color="inherit"
@@ -207,12 +211,18 @@ export default function Blog() {
             <Grid container>
               <Grid item md={6}>
                 <div className={classes.mainFeaturedPostContent}>
-                  <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                  <Typography
+                    component="h1"
+                    variant="h3"
+                    color="inherit"
+                    gutterBottom
+                  >
                     Title of a longer featured blog post
                   </Typography>
                   <Typography variant="h5" color="inherit" paragraph>
-                    Multiple lines of text that form the lede, informing new readers quickly and
-                    efficiently about what&apos;s most interesting in this post&apos;s contents.
+                    Multiple lines of text that form the lede, informing new
+                    readers quickly and efficiently about what&apos;s most
+                    interesting in this post&apos;s contents.
                   </Typography>
                   <Link variant="subtitle1" href="#">
                     Continue reading…
@@ -265,7 +275,10 @@ export default function Blog() {
               </Typography>
               <Divider />
               {posts.map(post => (
-                <Markdown className={classes.markdown} key={post.substring(0, 40)}>
+                <Markdown
+                  className={classes.markdown}
+                  key={post.substring(0, 40)}
+                >
                   {post}
                 </Markdown>
               ))}
@@ -278,11 +291,16 @@ export default function Blog() {
                   About
                 </Typography>
                 <Typography>
-                  Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit
-                  amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+                  Etiam porta sem malesuada magna mollis euismod. Cras mattis
+                  consectetur purus sit amet fermentum. Aenean lacinia bibendum
+                  nulla sed consectetur.
                 </Typography>
               </Paper>
-              <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}
+              >
                 Archives
               </Typography>
               {archives.map(archive => (
@@ -290,7 +308,11 @@ export default function Blog() {
                   {archive}
                 </Link>
               ))}
-              <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}
+              >
                 Social
               </Typography>
               {social.map(network => (
@@ -309,7 +331,12 @@ export default function Blog() {
           <Typography variant="h6" align="center" gutterBottom>
             Footer
           </Typography>
-          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+          <Typography
+            variant="subtitle1"
+            align="center"
+            color="textSecondary"
+            component="p"
+          >
             Something here to give the footer a purpose!
           </Typography>
           <Copyright />

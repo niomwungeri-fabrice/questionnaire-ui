@@ -1,23 +1,23 @@
 export const initialState = {
-    message: "",
-    error: "",
-    token: "",
-    refresh:"",
-    tags:[],
-    user: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-    },
-    meetUp:{
-      name : "",
-      venue : "",
-      image_url : "", 
-      start_date : new Date(),
-      end_date : new Date(),
-      event_type : "",
-      organizer : "",
-      newTag:""
-    },
-  };
+  message: '',
+  error: '',
+  token: '',
+  refresh: '',
+  tags: [],
+  user: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  },
+  meetUp: {
+    name: '',
+    venue: '',
+    image_url: '',
+    start_date: new Date(),
+    end_date: new Date(),
+    event_type: '',
+    organizer: '',
+    newTag: ''
+  }
+};
