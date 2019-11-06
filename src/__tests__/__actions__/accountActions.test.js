@@ -80,7 +80,8 @@ describe('Async Account Actions', () => {
       expect(actions).toEqual(expectedResults);
     });
   });
-
+});
+describe('login actions', () => {
   it('should fail to login', () => {
     const expectedResults = [
       {
@@ -115,6 +116,8 @@ describe('Async Account Actions', () => {
       expect(actions).toEqual(expectedResults);
     });
   });
+});
+describe('set current user', () => {
   it('should  set current user successfully', () => {
     const expectedResults = [
       {
