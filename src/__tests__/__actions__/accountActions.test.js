@@ -36,15 +36,14 @@ describe('Non-Async Account Actions', () => {
   });
 });
 
+beforeEach(() => {
+  moxios.install(axios);
+  store = mockStore({});
+});
+afterEach(() => {
+  moxios.uninstall(axios);
+});
 describe('Async Account Actions', () => {
-  beforeEach(() => {
-    moxios.install(axios);
-    store = mockStore({});
-  });
-  afterEach(() => {
-    moxios.uninstall(axios);
-  });
-
   it('should create account successfully', () => {
     const expectedResults = [
       {

@@ -1,12 +1,8 @@
 import meetUpReducers from '../../redux/reducers/meetUpReducer';
 import {
-  testInput,
-  testUser,
   validMeetUpPayload,
   defaultInitialState,
   invalidMeetUpPayload,
-  fakeTokenAccess,
-  fakeTokenRefresh,
   fakeErrorMessage
 } from '../../testData';
 import {
