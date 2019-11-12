@@ -45,15 +45,14 @@ describe('Non-Async Meetup Actions', () => {
   });
 });
 
-describe('Async MeetUp Actions', () => {
-  beforeEach(() => {
-    moxios.install(axios);
-    store = mockStore({});
-  });
-  afterEach(() => {
-    moxios.uninstall(axios);
-  });
-
+beforeEach(() => {
+  moxios.install(axios);
+  store = mockStore({});
+});
+afterEach(() => {
+  moxios.uninstall(axios);
+});
+describe('Async create meetUp actions', () => {
   it('should create meetUp successfully', () => {
     const expectedResults = [
       {
@@ -87,7 +86,9 @@ describe('Async MeetUp Actions', () => {
       expect(actions).toEqual(expectedResults);
     });
   });
+});
 
+describe('Async actions adding tags to a meetup', () => {
   it('should add tags successfully', () => {
     const expectedResults = [
       {

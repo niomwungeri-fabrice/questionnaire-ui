@@ -19,8 +19,8 @@ const setUp = () => {
       name: 'Developer Festival 2019',
       venue: 'Kigali Convention Center',
       image_url: 'https://picsum.photos/id/237/200/300',
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: "2019-11-12T11:55:49.001Z",
+      end_date: "2019-11-12T11:55:49.001Z",
       event_type: 'DINNER_OR_GALA',
       organizer: 'Ministry of ICT',
       newTag: 'sports'
