@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,90 +19,8 @@ import Markdown from './RMarkDown/Markdown';
 import post1 from './RMarkDown/blog-post.1.md';
 import post2 from './RMarkDown/blog-post.3.md';
 import post3 from './RMarkDown/blog-post.3.md';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles(theme => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`
-  },
-  toolbarTitle: {
-    flex: 1
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto'
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0
-  },
-  mainFeaturedPost: {
-    position: 'relative',
-    backgroundColor: theme.palette.grey[800],
-    color: theme.palette.common.white,
-    marginBottom: theme.spacing(4),
-    backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: 'rgba(0,0,0,.3)'
-  },
-  mainFeaturedPostContent: {
-    position: 'relative',
-    padding: theme.spacing(3),
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(6),
-      paddingRight: 0
-    }
-  },
-  mainGrid: {
-    marginTop: theme.spacing(3)
-  },
-  card: {
-    display: 'flex'
-  },
-  cardDetails: {
-    flex: 1
-  },
-  cardMedia: {
-    width: 160
-  },
-  markdown: {
-    ...theme.typography.body2,
-    padding: theme.spacing(3, 0)
-  },
-  sidebarAboutBox: {
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200]
-  },
-  sidebarSection: {
-    marginTop: theme.spacing(3)
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0)
-  }
-}));
+import { CopyRight } from '../components/CopyRight';
+import { homeUseStyles } from '../styles/material-ui/HomeStyles';
 
 const sections = [
   'Technology',
@@ -153,14 +70,16 @@ const archives = [
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
 export default function Blog() {
-  const classes = useStyles();
+  const classes = homeUseStyles();
 
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
         <Toolbar className={classes.toolbar}>
-          <Button size="small">Subscribe</Button>
+          <Button variant="outlined" size="small">
+            Sign In
+          </Button>
           <Typography
             component="h2"
             variant="h5"
@@ -169,7 +88,7 @@ export default function Blog() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Blog
+            e-MeetUp
           </Typography>
           <IconButton>
             <SearchIcon />
@@ -270,22 +189,6 @@ export default function Blog() {
           <Grid container spacing={5} className={classes.mainGrid}>
             {/* Main content */}
             <Grid item xs={12} md={8}>
-              <Typography variant="h6" gutterBottom>
-                From the Firehose
-              </Typography>
-              <Divider />
-              {posts.map(post => (
-                <Markdown
-                  className={classes.markdown}
-                  key={post.substring(0, 40)}
-                >
-                  {post}
-                </Markdown>
-              ))}
-            </Grid>
-            {/* End main content */}
-            {/* Sidebar */}
-            <Grid item xs={12} md={4}>
               <Paper elevation={0} className={classes.sidebarAboutBox}>
                 <Typography variant="h6" gutterBottom>
                   About
@@ -293,9 +196,30 @@ export default function Blog() {
                 <Typography>
                   Etiam porta sem malesuada magna mollis euismod. Cras mattis
                   consectetur purus sit amet fermentum. Aenean lacinia bibendum
-                  nulla sed consectetur.
+                  nulla sed consectetur. Lorem Ipsum is simply dummy text of the
+                  printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make
+                  a type specimen book. It has survived not only five centuries,
+                  but also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. Lorem
+                  Ipsum is simply dummy text of the printing and typesetting
+                  industry. Lorem Ipsum has been the industry's standard dummy
+                  text ever since the 1500s, when an unknown printer took a
+                  galley of type and scrambled it to make a type specimen book.
+                  It has survived not only five centuries, but also the leap
+                  into electronic typesetting, remaining essentially unchanged.
+                  It was popularised in the 1960s with the release of Letraset
                 </Typography>
               </Paper>
+              <Divider />
+            </Grid>
+            {/* End main content */}
+            {/* Sidebar */}
+            <Grid item xs={12} md={4}>
               <Typography
                 variant="h6"
                 gutterBottom
@@ -339,7 +263,7 @@ export default function Blog() {
           >
             Something here to give the footer a purpose!
           </Typography>
-          <Copyright />
+          <CopyRight />
         </Container>
       </footer>
       {/* End footer */}
