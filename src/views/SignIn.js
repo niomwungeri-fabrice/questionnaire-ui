@@ -13,6 +13,7 @@ import { CopyRight } from '../components/CopyRight';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { mapStateToProps } from './SignUp';
+import { useToasts } from 'react-toast-notifications';
 import {
   handleSignIn,
   handleCurrentAccount
@@ -42,12 +43,14 @@ export const SignIn = props => {
       }
     });
   };
+
   const handleInput = ({ target: { value, name } }) => {
     const { onInputChange } = props;
     onInputChange({ field: name, value });
   };
 
   const { email: emailError, password: passwordError, detail } = error;
+  const { addToast } = useToasts();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -98,6 +101,11 @@ export const SignIn = props => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() =>
+              addToast(passwordError, {
+                autoDismiss: true
+              })
+            }
           >
             Sign In
           </Button>
@@ -129,7 +137,4 @@ export const mapDispatchToProps = dispatch => ({
   setCurrentAccount: payload => dispatch(handleCurrentAccount(payload))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(SignIn));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));

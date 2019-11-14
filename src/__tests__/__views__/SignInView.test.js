@@ -24,6 +24,7 @@ describe('SignIn Dispatcher', () => {
     enzymeWrapperSignIn.find('#login-form').simulate('submit', {
       preventDefault: () => {}
     });
+    expect(props.history.push).toHaveBeenCalled();
     expect(props.history.push.mock.instances.length).toBe(1);
   });
 

@@ -15,14 +15,15 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
-import Markdown from './RMarkDown/Markdown';
-import post1 from './RMarkDown/blog-post.1.md';
-import post2 from './RMarkDown/blog-post.3.md';
-import post3 from './RMarkDown/blog-post.3.md';
+// import post1 from './RMarkDown/blog-post.1.md';
+// import post2 from './RMarkDown/blog-post.3.md';
+// import post3 from './RMarkDown/blog-post.3.md';
 import { CopyRight } from '../components/CopyRight';
 import { homeUseStyles } from '../styles/material-ui/HomeStyles';
-
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { handleGetAllMeetUPs } from '../redux/actions/meetUpActions';
+import { pickTopThree } from '../helpers/meetUpHelpers';
 
 const sections = [
   'Technology',
@@ -52,7 +53,7 @@ const featuredPosts = [
   }
 ];
 
-const posts = [post1, post2, post3];
+// const posts = [post1, post2, post3];
 
 const archives = [
   'March 2020',
@@ -71,15 +72,18 @@ const archives = [
 
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
-export default function Blog() {
+export const Home = props => {
   const classes = homeUseStyles();
-
+  const { onFetchMeetUps, meetUps } = props;
+  // onFetchMeetUps();
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
         <Toolbar className={classes.toolbar}>
-          <Button size="small">Subscribe</Button>
+          <Button variant="outlined" size="small">
+            Sign In
+          </Button>
           <Typography
             component="h2"
             variant="h5"
@@ -88,7 +92,7 @@ export default function Blog() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Blog
+            e-MeetUp
           </Typography>
           <IconButton>
             <SearchIcon />
@@ -137,6 +141,7 @@ export default function Blog() {
                     gutterBottom
                   >
                     Title of a longer featured blog post
+                    {meetUps.slice(0, 1).name}
                   </Typography>
                   <Typography variant="h5" color="inherit" paragraph>
                     Multiple lines of text that form the lede, informing new
@@ -189,22 +194,6 @@ export default function Blog() {
           <Grid container spacing={5} className={classes.mainGrid}>
             {/* Main content */}
             <Grid item xs={12} md={8}>
-              <Typography variant="h6" gutterBottom>
-                From the Firehose
-              </Typography>
-              <Divider />
-              {posts.map(post => (
-                <Markdown
-                  className={classes.markdown}
-                  key={post.substring(0, 40)}
-                >
-                  {post}
-                </Markdown>
-              ))}
-            </Grid>
-            {/* End main content */}
-            {/* Sidebar */}
-            <Grid item xs={12} md={4}>
               <Paper elevation={0} className={classes.sidebarAboutBox}>
                 <Typography variant="h6" gutterBottom>
                   About
@@ -212,9 +201,30 @@ export default function Blog() {
                 <Typography>
                   Etiam porta sem malesuada magna mollis euismod. Cras mattis
                   consectetur purus sit amet fermentum. Aenean lacinia bibendum
-                  nulla sed consectetur.
+                  nulla sed consectetur. Lorem Ipsum is simply dummy text of the
+                  printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make
+                  a type specimen book. It has survived not only five centuries,
+                  but also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. Lorem
+                  Ipsum is simply dummy text of the printing and typesetting
+                  industry. Lorem Ipsum has been the industry's standard dummy
+                  text ever since the 1500s, when an unknown printer took a
+                  galley of type and scrambled it to make a type specimen book.
+                  It has survived not only five centuries, but also the leap
+                  into electronic typesetting, remaining essentially unchanged.
+                  It was popularised in the 1960s with the release of Letraset
                 </Typography>
               </Paper>
+              <Divider />
+            </Grid>
+            {/* End main content */}
+            {/* Sidebar */}
+            <Grid item xs={12} md={4}>
               <Typography
                 variant="h6"
                 gutterBottom
@@ -264,4 +274,14 @@ export default function Blog() {
       {/* End footer */}
     </React.Fragment>
   );
-}
+};
+
+export const mapStateToProps = ({ event }) => ({
+  meetUps: event.meetUps
+});
+
+export const mapDispatchToProps = dispatch => ({
+  onFetchMeetUps: () => dispatch(handleGetAllMeetUPs())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

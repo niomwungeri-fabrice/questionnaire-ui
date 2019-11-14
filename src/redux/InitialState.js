@@ -4,6 +4,7 @@ export const initialState = {
   token: '',
   refresh: '',
   tags: [],
+  meetUps: [],
   user: {
     firstName: '',
     lastName: '',

@@ -1,4 +1,3 @@
-import { setUp } from '../../testData';
 import { mapDispatchToProps } from '../../views/SignIn';
 describe('Landing Dispatcher', () => {
   it('should test mapDispatchToProps setCurrentAccount()', () => {

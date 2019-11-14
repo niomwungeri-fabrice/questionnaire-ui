@@ -1,4 +1,4 @@
-import { SET_INPUT, CLEAR_INPUT } from './types';
+import { SET_INPUT, CLEAR_INPUT, SET_ERROR } from './types';
 
 export const REACT_APP_SERVER_URL =
   'https://questionnaire-web-api.herokuapp.com/api/v1';
@@ -16,3 +16,22 @@ export const handleClearInputs = payload => {
     payload
   };
 };
+
+
+export const setToken = (token) =>{
+  return {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+}
+
+export const setError = error => ({
+  type: SET_ERROR,
+  payload: error
+});
+
+export const setSuccess = (type, payload) => ({
+  type,
+  payload
+});

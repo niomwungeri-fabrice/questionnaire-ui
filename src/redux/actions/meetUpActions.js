@@ -1,6 +1,12 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { CREATE_MEETUP_SUCCESS, SET_ERROR, ADD_TAG, REMOVE_TAG } from './types';
+import {
+  CREATE_MEETUP_SUCCESS,
+  ADD_TAG,
+  REMOVE_TAG,
+  GET_ALL_MEETUP_SUCCESS
+} from './types';
+import { setSuccess, setToken, setError } from '../actions/commonActions';
 
 dotenv.config();
 
@@ -11,40 +17,29 @@ export const handleCreateMeetUp = (payload, token) => async dispatch => {
     const response = await axios.post(
       `${REACT_APP_API_URL}/meetup/new/`,
       payload,
-      {
-        headers: {
-          Authorization: 'Bearer ' + token
-        }
-      }
+      setToken(token)
     );
-    dispatch({
-      type: CREATE_MEETUP_SUCCESS,
-      payload: response.data
-    });
-    return true;
+    dispatch(setSuccess(CREATE_MEETUP_SUCCESS, response.data));
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: error.response.data
-    });
-    return false;
+    dispatch(setError(error.response.data));
+  }
+};
+
+export const handleGetAllMeetUPs = () => async dispatch => {
+  try {
+    const response = await axios.get(`${REACT_APP_API_URL}/meetup/`);
+    dispatch(setSuccess(GET_ALL_MEETUP_SUCCESS, response.data));
+  } catch (error) {
+    dispatch(setError(error.response.data));
   }
 };
 
 export const handleAddTag = payload => async dispatch => {
   try {
     const response = await axios.post(`${REACT_APP_API_URL}/tags/`, payload);
-    dispatch({
-      type: ADD_TAG,
-      payload: response.data
-    });
-    return true;
+    dispatch(setSuccess(ADD_TAG, response.data));
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: error.response.data
-    });
-    return false;
+    dispatch(setError(error.response.data));
   }
 };
 

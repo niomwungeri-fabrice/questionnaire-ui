@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
-// import {REACT_APP_SERVER_URL} from './commonActions'
+import { setSuccess, setError, setToken } from './commonActions';
 import {
   CREATE_ACCOUNT_SUCCESS,
   LOGIN_SUCCESS,
-  CURRENT_ACCOUNT_SUCCESS,
-  SET_ERROR
+  CURRENT_ACCOUNT_SUCCESS
 } from './types';
 
 dotenv.config();
@@ -18,53 +17,30 @@ export const handleSignUp = payload => async dispatch => {
       `${REACT_APP_API_URL}/register/`,
       payload
     );
-    dispatch({
-      type: CREATE_ACCOUNT_SUCCESS,
-      payload: response.data
-    });
-    return true;
+    dispatch(setSuccess(CREATE_ACCOUNT_SUCCESS, response.data));
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: error.response.data
-    });
-    return false;
+    dispatch(setError(error.response.data));
   }
 };
 
 export const handleSignIn = payload => async dispatch => {
   try {
     const response = await axios.post(`${REACT_APP_API_URL}/token/`, payload);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: response.data
-    });
+    dispatch(setSuccess(LOGIN_SUCCESS, response.data));
     localStorage.setItem('token', response.data.access);
-    return response.data;
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: error.response.data
-    });
-    return undefined;
+    dispatch(setError(error.response.data));
   }
 };
 
 export const handleCurrentAccount = tokenPayload => async dispatch => {
   try {
-    const response = await axios.get(`${REACT_APP_API_URL}/me/`, {
-      headers: {
-        Authorization: 'Bearer ' + tokenPayload
-      }
-    });
-    dispatch({
-      type: CURRENT_ACCOUNT_SUCCESS,
-      payload: response.data
-    });
+    const response = await axios.get(
+      `${REACT_APP_API_URL}/me/`,
+      setToken(tokenPayload)
+    );
+    dispatch(setSuccess(CURRENT_ACCOUNT_SUCCESS, response.data));
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: error.response.data
-    });
+    dispatch(setError(error.response.data));
   }
 };

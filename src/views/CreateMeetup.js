@@ -351,6 +351,7 @@ export const CreateMeetup = props => {
     </div>
   );
 };
+
 export const mapStateToProps = ({ event }) => ({ ...event });
 
 export const mapDispatchToProps = dispatch => ({

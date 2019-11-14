@@ -4,7 +4,8 @@ import {
   SET_ERROR,
   ADD_TAG,
   REMOVE_TAG,
-  CLEAR_INPUT
+  CLEAR_INPUT,
+  GET_ALL_MEETUP_SUCCESS
 } from '../actions/types';
 import { initialState } from '../InitialState';
 
@@ -39,6 +40,11 @@ export default function(state = initialState, { type, payload }) {
       return {
         ...state,
         tags: state.tags.filter(tag => tag !== payload)
+      };
+    case GET_ALL_MEETUP_SUCCESS:
+      return {
+        ...state,
+        meetUps: payload
       };
     default:
       return state;
