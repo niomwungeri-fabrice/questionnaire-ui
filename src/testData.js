@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { SignUp } from './views/SignUp';
 import { SignIn } from './views/SignIn';
-import { Landing } from './views/Landing';
 
 const setUp = () => {
   const props = {
@@ -32,12 +31,10 @@ const setUp = () => {
   };
   const enzymeWrapperSignUp = shallow(<SignUp {...props} />);
   const enzymeWrapperSignIn = shallow(<SignIn {...props} />);
-  const enzymeWrapperLanding = shallow(<Landing {...props} />);
   return {
     props,
     enzymeWrapperSignUp,
-    enzymeWrapperSignIn,
-    enzymeWrapperLanding
+    enzymeWrapperSignIn
   };
 };
 

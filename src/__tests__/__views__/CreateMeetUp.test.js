@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { CreateMeetup } from '../../views/CreateMeetup';
 import { mapDispatchToProps, mapStateToProps } from '../../views/CreateMeetup';
-// import { mapStateToProps } from '../../views/SignUp'; //investigate the reason mapStateToProps from CreateMeetup its not working
 
 import { testInitialState } from '../../testData';
 
@@ -19,8 +18,8 @@ const setUp = () => {
       name: 'Developer Festival 2019',
       venue: 'Kigali Convention Center',
       image_url: 'https://picsum.photos/id/237/200/300',
-      start_date: "2019-11-12T11:55:49.001Z",
-      end_date: "2019-11-12T11:55:49.001Z",
+      start_date: '2019-11-12T11:55:49.001Z',
+      end_date: '2019-11-12T11:55:49.001Z',
       event_type: 'DINNER_OR_GALA',
       organizer: 'Ministry of ICT',
       newTag: 'sports'
@@ -138,14 +137,22 @@ describe('create meetup dispatcher', () => {
     expect(dispatch.mock.calls[0][0]).toBeDefined();
   });
 
-  it.skip('should test mapStateToProps', () => {
-    expect(mapStateToProps(testInitialState).event.name).toEqual(
+  it('should test mapStateToProps', () => {
+    const initialState = {
+      event: {
+        name: 'Developer Festival 2019',
+        venue: 'Kigali Convention Center'
+      }
+    };
+    
+    expect(mapStateToProps({ ...testInitialState.account }).name).toEqual(
       'Developer Festival 2019'
     );
-    expect(mapStateToProps(testInitialState).event.event_type).toEqual(
+
+    expect(mapStateToProps({ ...testInitialState.account }).event_type).toEqual(
       'DINNER_OR_GALA'
     );
-    expect(mapStateToProps(testInitialState).event.organizer).toEqual(
+    expect(mapStateToProps({ ...testInitialState.account }).organizer).toEqual(
       'Ministry of ICT'
     );
   });
