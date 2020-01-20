@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../JavaScriptGrammar/.idea/JavaScriptGrammar.iml" filepath="$PROJECT_DIR$/../JavaScriptGrammar/.idea/JavaScriptGrammar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../e-voting-ui/.idea/e-voting-ui.iml" filepath="$PROJECT_DIR$/../e-voting-ui/.idea/e-voting-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/questionnaire-ui.iml" filepath="$PROJECT_DIR$/.idea/questionnaire-ui.iml" />
     </modules>
   </component>
